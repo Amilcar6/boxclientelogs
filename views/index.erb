@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>White Pages CallerId</title>
+    <title>Box Burger Delivery</title>
     <script src="//media.twiliocdn.com/sdk/js/common/v0.1/twilio-common.min.js"></script>
     <script type="text/javascript"
       src="//static.twilio.com/libs/twiliojs/1.2/twilio.min.js"></script>
@@ -75,7 +75,7 @@
 
     // Estabilish a connection with the call.
     Twilio.Device.connect(function (conn) {
-      $("#log").text("On call with: " + callerProfile.name);
+      $("#log").text("En llamada con: " + conn.parameters.From);
     });
 
     // Message when a call disconnects
@@ -95,10 +95,11 @@
         // set the globalConn
       globalConn = conn;
       // Show the caller id info
-      $("#log").text("Call from: " + callerProfile.name);
+      $("#log").text("Numero del Cliente: " + conn.parameters.From);
+      
       showCaller(callerProfile);
       // Add to call log
-      $("<li>", {id: conn.Id, text: callerProfile.name}).click(function () {
+      $("<li>", {id: conn.Id, text: conn.parameters.From}).click(function () {
         showCaller(callerProfile);
       }).prependTo("#people");
     });
@@ -201,7 +202,7 @@
       </script>
 
     </script>
-    <div id="calllog" >
+    <div id="calllog" onclick="hideCaller();">
       <title>Listado de llamadas</title>
     </div>
     <ul id="people"/>
